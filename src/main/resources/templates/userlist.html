@@ -2,23 +2,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <title>사용자 목록 조회</title>
+    <th:block th:include="fragments/header"></th:block>
+	<script type="text/javascript" src="/js/main.js"></script>
 </head>
 <body>
-<table>
-<thead>
-	<tr>
-		<th>번호</th><th>이름</th><th>회사</th>
-	</tr>
-</thead>
-<tbody>
-	<tr th:each="user : ${users}">
-		<td th:text="${user.id}">ID</td>
-		<td th:text="${user.name}">ID</td>
-		<td th:text="${user.company}">ID</td>
-	</tr>
-</tbody>
-</table>
+<th:block th:include="fragments/nav"></th:block>
+<div class="container" style="min-height: 500px">
+	
+    <div class="starter-template">
+     <h1>User</h1>
+        <table class="table">
+		  <thead class="thead-dark">
+		    <tr>
+				<th>번호</th><th>이름</th><th>회사</th>
+			</tr>
+			</thead>
+		  	<tbody>
+				<tr th:each="user : ${users}">
+					<td th:text="${user.id}">ID</td>
+					<td th:text="${user.name}">ID</td>
+					<td th:text="${user.company}">ID</td>
+				</tr>
+			</tbody>
+		</table>
+
+    </div>
+
+</div>
+<th:block th:include="fragments/footer"></th:block>
 </body>
 </html>

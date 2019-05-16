@@ -25,7 +25,7 @@ function fire_ajax_submit() {
 			"name" : $('#name').val(),
 			"company" : $('#company').val()
 	};
-    console.log(data);
+    
     var json = JSON.stringify(data);
     console.log(json);
     $.ajax({

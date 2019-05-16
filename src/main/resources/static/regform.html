@@ -4,12 +4,21 @@
 	  
 <head>
     <title>Registering form</title>
-    <th:block th:include="fragments/header"></th:block>
-    <script type="text/javascript" src="js/main.js"></script>
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link rel="stylesheet" type="text/css" 
+	href="/webjars/bootstrap/4.3.1/dist/css/bootstrap.min.css">
+	<script type="text/javascript" src="/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 </head>
 <body>
 
-<th:block th:include="fragments/nav"></th:block>
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Haeri.github.io</a>
+        </div>
+    </div>
+</nav>
 
 <div class="container" style="min-height: 500px">
 
@@ -46,7 +55,13 @@
 
 </div>
 
-    <th:block th:include="fragments/footer"></th:block>
+    <div class="container">
+    <footer>
+        <p>
+            © <a href="https://haeri98.github.io">haeri98.github.io</a> 201712065
+        </p>
+    </footer>
+</div>
 
 <script
   src="https://code.jquery.com/jquery-3.4.1.js"

@@ -3,7 +3,7 @@
 	  xmlns:th="http://www.thymeleaf.org">
 	  
 <head>
-    <title>Registering form</title>
+    <title>Delete form</title>
     <th:block th:include="fragments/header"></th:block>
 </head>
 <body>
@@ -13,8 +13,8 @@
 <div class="container" style="min-height: 500px">
 
     <div class="starter-template">
-    	<h1>방문을 환영합니다.</h1>
-    	<a href="./regform.html">회원 등록</a> / 
+    	<h1><span th:text="${name}"></span>님 정상적으로 회원탈퇴가 처리되었습니다.</h1>
+    	<a href="./regform">회원 등록</a> / 
     	<a href="./product/new">상품 등록</a>
     </div>
 	

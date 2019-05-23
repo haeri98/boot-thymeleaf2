@@ -91,7 +91,7 @@ public class HomeController {
 		return "redirect:/users";
 		// 업데이트가 성공하면 users 자원을 get 방식으로 접근하되 model에 user 어트리뷰트를 전달
 		// return ResponseEntity.ok(userUpdate);
-	}
+	} 
 	
 	
 }

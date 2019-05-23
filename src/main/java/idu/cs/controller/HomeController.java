@@ -74,7 +74,7 @@ public class HomeController {
 		userRepo.delete(user); // 객체 삭제 -> jpa : record 삭제로 적용
 		model.addAttribute("name", user.getName());
 		return "disjoin";
-	}
+	} 
 	
 	@PutMapping("/users/{id}")
 	//@RequestMapping(value="/users/{id}" method="RquestMethod.DELETE")

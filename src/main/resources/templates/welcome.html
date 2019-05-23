@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org">
-	  
+     xmlns:th="http://www.thymeleaf.org">
+     
 <head>
-    <title>Registering form</title>
+    <title>Welcome</title>
     <th:block th:include="fragments/header"></th:block>
+    <!-- 웹 브라우저에 내장된 html 인터프리터에게 무시하라고 알려줌
+    <script type="text/javascript" src="/js/main.js"></script>
+     -->
 </head>
 <body>
-
 <th:block th:include="fragments/nav"></th:block>
 
 <div class="container" style="min-height: 500px">
@@ -20,14 +22,7 @@
 	
 </div>
 
-    <th:block th:include="fragments/footer"></th:block>
-
-<script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
-
-<script type="text/javascript" src="js/main.js"></script>
+<th:block th:include="fragments/footer"></th:block>
 
 </body>
 </html>

@@ -1,33 +1,28 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org">
-	  
+     xmlns:th="http://www.thymeleaf.org">
+     
 <head>
     <title>Delete form</title>
     <th:block th:include="fragments/header"></th:block>
+    <!-- 웹 브라우저에 내장된 html 인터프리터에게 무시하라고 알려줌
+    <script type="text/javascript" src="/js/main.js"></script>
+     -->
 </head>
 <body>
-
 <th:block th:include="fragments/nav"></th:block>
 
 <div class="container" style="min-height: 500px">
 
     <div class="starter-template">
     	<h1><span th:text="${name}"></span>님 정상적으로 회원탈퇴가 처리되었습니다.</h1>
-    	<a href="./regform">회원 등록</a> / 
+    	<a href="./regform.html">회원 등록</a> / 
     	<a href="./product/new">상품 등록</a>
     </div>
 	
 </div>
 
     <th:block th:include="fragments/footer"></th:block>
-
-<script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
-
-<script type="text/javascript" src="js/main.js"></script>
-
+    
 </body>
 </html>

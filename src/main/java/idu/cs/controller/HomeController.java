@@ -41,7 +41,7 @@ public class HomeController {
 		return "userlist";
 	}
 	
-	@GetMapping("/users/byname") // byname?name=***, ***값이 name 변수
+	@GetMapping("/users/name") // name?name=***, ***값이 name 변수
 	public String getUsersByName(@Param(value = "name") String name, Model model) {
 		List<User> users = userRepo.findByName(name);
 		model.addAttribute("users", users); // -기호 연산자로 인식함

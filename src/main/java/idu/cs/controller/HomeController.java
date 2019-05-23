@@ -1,8 +1,10 @@
 package idu.cs.controller;
 
+import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +41,20 @@ public class HomeController {
 		return "userlist";
 	}
 	
+	@GetMapping("/users/byname") // byname?name=***, ***값이 name 변수
+	public String getUsersByName(@Param(value = "name") String name, Model model) {
+		List<User> users = userRepo.findByName(name);
+		model.addAttribute("users", users); // -기호 연산자로 인식함
+		return "userlist";
+	}
+	
+	@GetMapping("/users/nameasc") //
+	public String getUsersByNameAsc(@Param(value = "name") String name, Model model) {
+		List<User> users = userRepo.findByNameOrderByIdAsc(name);
+		model.addAttribute("users", users); // -기호 연산자로 인식함
+		return "userlist";
+	}
+	
 	@PostMapping("/users")
 	public String createUser(@Valid User user, Model model) {
 		userRepo.save(user);
@@ -62,7 +78,7 @@ public class HomeController {
 		//model.addAttribute("name", user.getName());
 		//model.addAttribute("company", user.getCompany());
 		return "user";
-	} 
+	}
 	
 	@DeleteMapping("/users/{id}")
 	//@RequestMapping(value="/users/{id}" method="RquestMethod.DELETE")
@@ -74,7 +90,7 @@ public class HomeController {
 		userRepo.delete(user); // 객체 삭제 -> jpa : record 삭제로 적용
 		model.addAttribute("name", user.getName());
 		return "disjoin";
-	} 
+	}
 	
 	@PutMapping("/users/{id}")
 	//@RequestMapping(value="/users/{id}" method="RquestMethod.DELETE")
@@ -91,6 +107,6 @@ public class HomeController {
 		return "redirect:/users";
 		// 업데이트가 성공하면 users 자원을 get 방식으로 접근하되 model에 user 어트리뷰트를 전달
 		// return ResponseEntity.ok(userUpdate);
-	}   
+	}
 	
 }

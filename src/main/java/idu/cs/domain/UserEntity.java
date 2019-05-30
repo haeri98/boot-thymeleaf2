@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user") // 테이블 이름 지정 안쓰면 클래스 이름으로 설정
+@Table(name = "user") // 테이블 이름 지정 안쓰면 클래스 이름으로 설정 
 public class UserEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)

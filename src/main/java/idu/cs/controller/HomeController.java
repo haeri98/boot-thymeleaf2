@@ -93,7 +93,7 @@ public class HomeController {
 		List<UserEntity> users = userRepo.findByName(name);
 		model.addAttribute("users", users); // -기호 연산자로 인식함
 		return "userlist";
-	} 
+	}  
 	
 	@GetMapping("/users/nameasc") // 유저 목록 name 정렬
 	public String getUsersByNameAsc(@Param(value = "name") String name, Model model) {

@@ -20,19 +20,39 @@ import idu.cs.exception.ResourceNotFoundException;
 import idu.cs.repository.UserRepository;
 
 @Controller
+//애노테이션: 컴파일러에게 설정 내용이나 상태를 알려주는 목적, 적용 범위가 클래스 내부로 한정
 public class HomeController {
 	@Autowired UserRepository userRepo; // Dependency Injection
 	
+	/*
 	@GetMapping("/test")
 	public String home(Model model) {
 		model.addAttribute("test", "인덕 컴소");
 		model.addAttribute("khr", "김해리");
 		return "index";
-	}
+	} */
 	
 	@GetMapping("/")
 	public String loadWelcome(Model model) {
-		return "welcome";
+		return "index";
+	}
+	
+	@GetMapping("/login-form")
+	public String loginForm(Model model) {
+		return "login";
+	}
+	
+	//실제 로그인 처리
+	@PostMapping("/login")
+	public String loginUser(Model model) {
+		
+		return "login";
+	}
+	
+	@GetMapping("/register")
+	public String UserRegister(Model model) {
+		
+		return "register";
 	}
 	
 	@GetMapping("/users")
@@ -41,33 +61,33 @@ public class HomeController {
 		return "userlist";
 	}
 	
-	@GetMapping("/users/name") // name?name=***, ***값이 name 변수
+	@GetMapping("/users/name") // name?name=***, ***값이 name 변수, 유저 네임이 같은 사람 표시
 	public String getUsersByName(@Param(value = "name") String name, Model model) {
 		List<User> users = userRepo.findByName(name);
 		model.addAttribute("users", users); // -기호 연산자로 인식함
 		return "userlist";
 	} 
 	
-	@GetMapping("/users/nameasc") //
+	@GetMapping("/users/nameasc") // 유저 목록 name 정렬
 	public String getUsersByNameAsc(@Param(value = "name") String name, Model model) {
 		List<User> users = userRepo.findByNameOrderByIdAsc(name);
 		model.addAttribute("users", users); // -기호 연산자로 인식함
 		return "userlist";
 	}
 	
-	@PostMapping("/users")
+	@PostMapping("/users") // 유저 목록
 	public String createUser(@Valid User user, Model model) {
 		userRepo.save(user);
 		model.addAttribute("users", userRepo.findAll());
 		return "redirect:/users";
 	}
 	
-	@GetMapping("/regform")
+	@GetMapping("/regform") //유저 등록 폼
 	public String loadRegForm(Model model) {		
 		return "regform";
 	}
 	
-	@GetMapping("/users/{id}")
+	@GetMapping("/users/{id}") //한 유저 정보 보기
 	public String getUserById(@PathVariable(value = "id") Long userId,  
 	Model model) throws ResourceNotFoundException {
 		//User user = userRepo.findById(userId).get();
@@ -80,7 +100,7 @@ public class HomeController {
 		return "user";
 	}
 	
-	@DeleteMapping("/users/{id}")
+	@DeleteMapping("/users/{id}") // 한 유저 정보 삭제
 	//@RequestMapping(value="/users/{id}" method="RquestMethod.DELETE")
 	public String deleteuserById(@PathVariable(value = "id") Long userId,  
 	Model model) throws ResourceNotFoundException {
@@ -92,7 +112,7 @@ public class HomeController {
 		return "disjoin";
 	}
 	
-	@PutMapping("/users/{id}")
+	@PutMapping("/users/{id}") // 유저 정보 수정
 	//@RequestMapping(value="/users/{id}" method="RquestMethod.DELETE")
 	public String UpdateuserById(@PathVariable(value = "id") Long userId,  
 			@Valid User userDetails, Model model) throws ResourceNotFoundException {

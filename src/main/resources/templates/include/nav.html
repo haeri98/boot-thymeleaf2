@@ -17,16 +17,18 @@
                                 <li class="nav-item active">
                                     <a class="nav-link" href="/">Home</a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- 로그인 정보가 없으면 -->
+                                <li th:unless="${session.user}" class="nav-item">
                                     <a class="nav-link" href="/login-form">Sign-In</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/register">Sign-Up</a>
+                                <li th:unless="${session.user}" class="nav-item">
+                                    <a class="nav-link" href="/register-form">Sign-Up</a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- 로그인 정보가 있으면 -->
+                                <li th:if="${session.user}" class="nav-item">
                                     <a class="nav-link" href="/logout">Sign-Out</a>
                                 </li>
-                                <li class="nav-item">
+                                <li th:if="${session.user}" class="nav-item">
                                     <a class="nav-link" href="/info">Info</a>
                                 </li>
                                 <li class="nav-item dropdown">

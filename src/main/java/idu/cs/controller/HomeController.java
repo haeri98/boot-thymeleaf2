@@ -2,6 +2,8 @@ package idu.cs.controller;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -44,15 +46,45 @@ public class HomeController {
 	
 	//실제 로그인 처리
 	@PostMapping("/login")
-	public String loginUser(Model model) {
-		
-		return "login";
+	//user: 입력한 내용에 대한 객체, sessionUser: 리파지터리로부터 가져온 내용의 객체
+	public String loginUser(@Valid User user, HttpSession session) {
+		System.out.println("login process : ");
+		User sessionUser = userRepo.findByUserId(user.getUserId());
+		if(sessionUser == null) {
+			System.out.println("id error : ");
+			return "redirect:/login-form";
+		}
+		if(!sessionUser.getUserPw().equals(user.getUserPw())) {
+			System.out.println("pw error : ");
+			return "redirect:/login-form";
+		}
+		session.setAttribute("user", sessionUser);
+		return "redirect:/";
 	}
 	
-	@GetMapping("/register")
+	@GetMapping("/logout")
+	public String logoutUser(HttpSession session) {
+		// session.invalidate();
+		session.removeAttribute("user"); //user만 날림
+		return "redirect:/";
+	}
+	
+	@GetMapping("/register-form") //회원 등록
 	public String UserRegister(Model model) {
 		
 		return "register";
+	}
+	
+	@PostMapping("/users")
+	public String createUser(@Valid User user, Model model) {
+		userRepo.save(user);
+		model.addAttribute("users", userRepo.findAll());
+		return "redirect:/users";
+	}
+	
+	@GetMapping("/info")
+	public String UserInfo(Model model) {
+		return "info";
 	}
 	
 	@GetMapping("/users")
@@ -73,13 +105,6 @@ public class HomeController {
 		List<User> users = userRepo.findByNameOrderByIdAsc(name);
 		model.addAttribute("users", users); // -기호 연산자로 인식함
 		return "userlist";
-	}
-	
-	@PostMapping("/users") // 유저 목록
-	public String createUser(@Valid User user, Model model) {
-		userRepo.save(user);
-		model.addAttribute("users", userRepo.findAll());
-		return "redirect:/users";
 	}
 	
 	@GetMapping("/regform") //유저 등록 폼

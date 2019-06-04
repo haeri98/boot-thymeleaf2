@@ -17,14 +17,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import idu.cs.domain.UserEntity;
+import idu.cs.domain.User;
+import idu.cs.entity.UserEntity;
 import idu.cs.exception.ResourceNotFoundException;
 import idu.cs.repository.UserRepository;
+import idu.cs.service.UserService;
 
 @Controller
 //애노테이션: 컴파일러에게 설정 내용이나 상태를 알려주는 목적, 적용 범위가 클래스 내부로 한정
-public class HomeController {
-	@Autowired UserRepository userRepo; // Dependency Injection
+public class UserController {
+	@Autowired UserService userService;
 	
 	/*
 	@GetMapping("/test")
@@ -49,7 +51,9 @@ public class HomeController {
 	//user: 입력한 내용에 대한 객체, sessionUser: 리파지터리로부터 가져온 내용의 객체
 	public String loginUser(@Valid UserEntity user, HttpSession session) {
 		System.out.println("login process : ");
-		UserEntity sessionUser = userRepo.findByUserId(user.getUserId());
+		User sessionUser = 
+				userService.getUserByUserId(user.getUserId());
+				//userRepo.findByUserId(user.getUserId());
 		if(sessionUser == null) {
 			System.out.println("id error : ");
 			return "redirect:/login-form";
@@ -69,25 +73,24 @@ public class HomeController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("/register-form") //회원 등록
-	public String UserRegister(Model model) {
-		
+	@GetMapping("/register-form")
+	public String loadRegForm(Model model) {		
 		return "register";
-	}
-	
+	}	
 	@PostMapping("/users")
-	public String createUser(@Valid UserEntity user, Model model) {
-		userRepo.save(user);
-		model.addAttribute("users", userRepo.findAll());
+	public String createUser(@Valid User user, Model model) {
+		userService.saveUser(user); //userRepo.save(user);
+		//model.addAttribute("users", userService.getUsers()); //userRepo.findAll());
 		return "redirect:/users";
 	}
 	
 	@GetMapping("/users")
 	public String getAllUser(Model model) {
-		model.addAttribute("users", userRepo.findAll());
+		model.addAttribute("users", userService.getUsers());
+		//model.addAttribute("users", userRepo.findAll());
 		return "userlist";
 	}
-	
+	/*
 	@GetMapping("/users/name") // name?name=***, ***값이 name 변수, 유저 네임이 같은 사람 표시
 	public String getUsersByName(@Param(value = "name") String name, Model model) {
 		List<UserEntity> users = userRepo.findByName(name);
@@ -106,20 +109,21 @@ public class HomeController {
 	public String loadRegForm(Model model) {		
 		return "regform";
 	}
-	
+	*/
 	@GetMapping("/users/{id}") //한 유저 정보 보기
 	public String getUserById(@PathVariable(value = "id") Long userId,  
 	Model model) throws ResourceNotFoundException {
 		//User user = userRepo.findById(userId).get();
-		UserEntity user = userRepo.findById(userId)
-				.orElseThrow(() -> 
-				new ResourceNotFoundException("not found " + userId ));
+		User user = userService.getUser(userId);
+				//userRepo.findById(userId).orElseThrow(()
+				// -> new ResourceNotFoundException("not found " + userId ));
 		model.addAttribute("user", user);
 		//model.addAttribute("name", user.getName());
 		//model.addAttribute("company", user.getCompany());
 		return "info";
 	}
 	
+	/*
 	@DeleteMapping("/users/{id}") // 한 유저 정보 삭제
 	//@RequestMapping(value="/users/{id}" method="RquestMethod.DELETE")
 	public String deleteuserById(@PathVariable(value = "id") Long userId,  
@@ -131,7 +135,8 @@ public class HomeController {
 		model.addAttribute("name", user.getName());
 		return "disjoin";
 	}
-	
+	*/
+	/*
 	@PutMapping("/users/{id}") // 유저 정보 수정
 	//@RequestMapping(value="/users/{id}" method="RquestMethod.DELETE")
 	public String UpdateuserById(@PathVariable(value = "id") Long userId,  
@@ -148,5 +153,6 @@ public class HomeController {
 		// 업데이트가 성공하면 users 자원을 get 방식으로 접근하되 model에 user 어트리뷰트를 전달
 		// return ResponseEntity.ok(userUpdate);
 	}
+	*/
 	
 }
